@@ -1,4 +1,4 @@
-import { BoomZoom } from './boomzoom';
+import { BoomZoom } from './../boomzoom';
 
 describe('BoomZoom', function() {
     let testDiv;
