@@ -5,7 +5,7 @@ export class BoomZoom implements InterfaceBoomZoom {
     public element: NodeList;
 
     private elementLength: number;
-    private pluginName: string = 'BoomZoom';
+    private pluginName: string = 'boomzoom';
 
     constructor(private selector: string) {
         this.getElement();
