@@ -21,7 +21,7 @@ export class BoomZoom implements InterfaceBoomZoom {
     public zoom(options: InterfaceOptions): NodeList {
         let i: number = 0;
 
-        if (options.restore && this.isPluginData()) {
+        if (this.isRestoreNeed(options.restore)) {
             this.restore();
         }
 
@@ -55,6 +55,14 @@ export class BoomZoom implements InterfaceBoomZoom {
         }
 
         return this.element;
+    }
+
+    private isRestoreNeed(restore: boolean): boolean {
+        if (restore && this.isPluginData()) {
+            return true;
+        }
+
+        return false;
     }
 
     private setElementSizes(element: HTMLElement, options: {width: string, height: string}): HTMLElement {
