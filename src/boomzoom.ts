@@ -29,8 +29,10 @@ export class BoomZoom implements InterfaceBoomZoom {
             const element: HTMLElement = this.element[i] as HTMLElement;
             const elementData = this.calculateElementNewSizes(element, options.zoom);
 
-            element.style.width = `${elementData.width}px`;
-            element.style.height = `${elementData.height}px`;
+            this.setElementSizes(element, {
+                width: `${elementData.width}px`,
+                height: `${elementData.height}px`
+            });
 
             this.setPluginData(element);
         }
@@ -44,13 +46,22 @@ export class BoomZoom implements InterfaceBoomZoom {
         for (i; i < this.elementLength; i++) {
             const element = this.element[i] as HTMLElement;
             
-            element.style.width = '';
-            element.style.height = '';
+            this.setElementSizes(element, {
+                width: '',
+                height: ''
+            });
 
             this.removePluginData(element);
         }
 
         return this.element;
+    }
+
+    private setElementSizes(element: HTMLElement, options: {width: string, height: string}): HTMLElement {
+        element.style.width = options.width;
+        element.style.height = options.height;
+
+        return element;
     }
 
     private calculateElementNewSizes(element: HTMLElement, zoom: number): {width: number, height: number} {
