@@ -50,4 +50,18 @@ describe('BoomZoom', function() {
         expect(testDiv.offsetHeight).toBe(testDivSizes.height);
         expect(testDiv.offsetWidth).toBe(testDivSizes.width);
     });
+
+    it("should restore element's width and height before each BoomZoom.zoom() call", () => {
+        boomZoom.zoom({
+            zoom: zoomCoefficient
+        });
+
+        boomZoom.zoom({
+            zoom: zoomCoefficient,
+            restore: true
+        });
+
+        expect(testDiv.offsetHeight).toBe(Math.round(testDivSizes.height * zoomCoefficient));
+        expect(testDiv.offsetWidth).toBe(Math.round(testDivSizes.width * zoomCoefficient));
+    });
 });
