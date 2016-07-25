@@ -27,7 +27,7 @@ export class BoomZoom implements InterfaceBoomZoom {
 
         for (i; i < this.elementLength; i++) {
             const element: HTMLElement = this.element[i] as HTMLElement;
-            const elementData = this.calculateElementNewSizes(element, options.zoom);
+            const elementData = this.calculateSizes(element, options.zoom);
 
             this.setElementSizes(element, {
                 width: elementData.width,
@@ -72,7 +72,7 @@ export class BoomZoom implements InterfaceBoomZoom {
         return element;
     }
 
-    private calculateElementNewSizes(element: HTMLElement, zoom: number): {width: number, height: number} {
+    private calculateSizes(element: HTMLElement, zoom: number): {width: number, height: number} {
         return {
             width: element.offsetWidth * zoom,
             height: element.offsetHeight * zoom
