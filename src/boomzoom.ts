@@ -21,7 +21,7 @@ export class BoomZoom implements InterfaceBoomZoom {
     public zoom(options: InterfaceOptions): NodeList {
         let i: number = 0;
 
-        if (this.isRestoreNeed(options.restore)) {
+        if (this.isRestoreRequired(options.restore)) {
             this.restore();
         }
 
@@ -57,7 +57,7 @@ export class BoomZoom implements InterfaceBoomZoom {
         return this.element;
     }
 
-    private isRestoreNeed(restore: boolean): boolean {
+    private isRestoreRequired(restore: boolean): boolean {
         if (restore && this.isPluginData()) {
             return true;
         }
