@@ -88,11 +88,16 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     private isPluginData(): boolean {
+        let isPluginData;
+
         if ((this.element[0] as HTMLElement).getAttribute(this.getPluginDataAttribute())) {
-            return true;
+            isPluginData = true;
+        }
+        else {
+            isPluginData = false;
         }
 
-        return false;
+        return isPluginData;
     }
 
     private getPluginDataAttribute(): string {
