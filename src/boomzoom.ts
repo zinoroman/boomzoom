@@ -80,18 +80,22 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     private setPluginData(element: HTMLElement) {
-        element.setAttribute(`data-${this.pluginName}`, 'true');
+        element.setAttribute(this.getPluginDataAttribute(), 'true');
     }
 
     private removePluginData(element: HTMLElement) {
-        element.removeAttribute(`data-${this.pluginName}`);
+        element.removeAttribute(this.getPluginDataAttribute());
     }
 
     private isPluginData(): boolean {
-        if ((this.element[0] as HTMLElement).getAttribute(`data-${this.pluginName}`)) {
+        if ((this.element[0] as HTMLElement).getAttribute(this.getPluginDataAttribute())) {
             return true;
         }
 
         return false;
+    }
+
+    private getPluginDataAttribute(): string {
+        return `data-${this.pluginName}`;
     }
 }
