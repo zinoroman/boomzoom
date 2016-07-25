@@ -58,11 +58,16 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     private isRestoreRequired(restore: boolean): boolean {
+        let isRestoreRequired;
+
         if (restore && this.isPluginData()) {
-            return true;
+            isRestoreRequired = true;
+        }
+        else {
+            isRestoreRequired = false;
         }
 
-        return false;
+        return isRestoreRequired;
     }
 
     private setSizes(element: HTMLElement, options: {width: number|string, height: number|string}): HTMLElement {
