@@ -4,21 +4,15 @@ import { InterfaceBoomZoom } from './interfaces/interface-boomzoom';
 export class BoomZoom implements InterfaceBoomZoom {
     public element: NodeList;
 
-    private elementLength: number;
-    private pluginName: string = 'boomzoom';
-
     constructor(private selector: string) {
-        this.getElement();
+        this.initialize();
     }
 
-    public getElement(): number {
-        this.element = document.querySelectorAll(this.selector);
-
-        return this.elementLength;
+    public initialize(): NodeList {
+        return this.element = document.querySelectorAll(this.selector);
     }
 
     public zoom(options: InterfaceOptions): NodeList {
-
         for (let i = 0, length = this.element.length, isRestoreRequired = options.restore; i < length; i++) {
             const element: HTMLElement = this.element[i] as HTMLElement;
 
@@ -37,7 +31,7 @@ export class BoomZoom implements InterfaceBoomZoom {
         return this.element;
     }
 
-    public restore() {
+    public restore(): NodeList {
         for (let i = 0, length = this.element.length; i < length; i++) {
             this.restoreSizes(this.element[i] as HTMLElement);
         }
@@ -62,30 +56,5 @@ export class BoomZoom implements InterfaceBoomZoom {
             width: element.offsetWidth * zoom,
             height: element.offsetHeight * zoom
         };
-    }
-
-    private setPluginData(element: HTMLElement) {
-        element.setAttribute(this.getPluginDataAttribute(), 'true');
-    }
-
-    private removePluginData(element: HTMLElement) {
-        element.removeAttribute(this.getPluginDataAttribute());
-    }
-
-    private isPluginData(): boolean {
-        let isPluginData;
-
-        if ((this.element[0] as HTMLElement).getAttribute(this.getPluginDataAttribute())) {
-            isPluginData = true;
-        }
-        else {
-            isPluginData = false;
-        }
-
-        return isPluginData;
-    }
-
-    private getPluginDataAttribute(): string {
-        return `data-${this.pluginName}`;
     }
 }

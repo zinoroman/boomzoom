@@ -3,7 +3,7 @@ import { InterfaceOptions } from './interface-options';
 export interface InterfaceBoomZoom {
     element: NodeList;
     
-    getElement(): number;
+    initialize(): NodeList;
     zoom(options: InterfaceOptions): NodeList;
-    restore();
+    restore(): NodeList;
 }
