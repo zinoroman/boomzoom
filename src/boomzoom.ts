@@ -9,14 +9,17 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     public zoom(options: InterfaceOptions): NodeList {
-        for (let i = 0, length = this.element.length, isRestoreRequired = options.restore; i < length; i++) {
+        for (let i = 0, 
+                length = this.element.length, 
+                isRestoreRequired = options.restore,
+                zoomCoefficient = options.zoom; i < length; i++) {
             const element: HTMLElement = this.element[i] as HTMLElement;
 
             if (isRestoreRequired) {
                 this.restoreSizes(element);
             }
 
-            const elementSizes = this.calculateSizes(element, options.zoom);
+            const elementSizes = this.calculateSizes(element, zoomCoefficient);
 
             this.setSizes(element, {
                 width: elementSizes.width,
