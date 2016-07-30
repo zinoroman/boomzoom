@@ -1,6 +1,6 @@
 import { BoomZoom } from './../boomzoom';
 
-describe('BoomZoom', function() {
+describe('BoomZoom', () => {
     let testDiv;
     let testDivSizes;
     let boomZoom;
