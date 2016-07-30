@@ -4,12 +4,8 @@ import { InterfaceBoomZoom } from './interfaces/interface-boomzoom';
 export class BoomZoom implements InterfaceBoomZoom {
     public element: NodeList;
 
-    constructor(private selector: string) {
-        this.initialize();
-    }
-
-    public initialize(): NodeList {
-        return this.element = document.querySelectorAll(this.selector);
+    public initialize(selector: string): NodeList {
+        return this.element = document.querySelectorAll(selector);
     }
 
     public zoom(options: InterfaceOptions): NodeList {

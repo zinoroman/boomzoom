@@ -24,7 +24,8 @@ describe('BoomZoom', function() {
             height: testDiv.offsetHeight
         };
 
-        boomZoom = new BoomZoom(`#${elementData.id}`);
+        boomZoom = new BoomZoom();
+        boomZoom.initialize(`#${elementData.id}`);
     });
 
     afterEach(() => {
