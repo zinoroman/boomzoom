@@ -5,5 +5,5 @@ export interface InterfaceBoomZoom {
     
     getElement(): number;
     zoom(options: InterfaceOptions): NodeList;
-    restore(): NodeList;
+    restore();
 }

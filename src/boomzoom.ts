@@ -13,68 +13,48 @@ export class BoomZoom implements InterfaceBoomZoom {
 
     public getElement(): number {
         this.element = document.querySelectorAll(this.selector);
-        this.elementLength = this.element.length;
 
         return this.elementLength;
     }
 
     public zoom(options: InterfaceOptions): NodeList {
-        let i: number = 0;
 
-        if (this.isRestoreRequired(options.restore)) {
-            this.restore();
-        }
-
-        for (i; i < this.elementLength; i++) {
+        for (let i = 0, length = this.element.length, isRestoreRequired = options.restore; i < length; i++) {
             const element: HTMLElement = this.element[i] as HTMLElement;
-            const elementData = this.calculateSizes(element, options.zoom);
+
+            if (isRestoreRequired) {
+                this.restoreSizes(element);
+            }
+
+            const elementSizes = this.calculateSizes(element, options.zoom);
 
             this.setSizes(element, {
-                width: elementData.width,
-                height: elementData.height
+                width: elementSizes.width,
+                height: elementSizes.height
             });
-
-            this.setPluginData(element);
         }
 
         return this.element;
     }
 
-    public restore(): NodeList {
-        let i: number = 0;
-
-        for (i; i < this.elementLength; i++) {
-            const element = this.element[i] as HTMLElement;
-            
-            this.setSizes(element, {
-                width: '',
-                height: ''
-            });
-
-            this.removePluginData(element);
+    public restore() {
+        for (let i = 0, length = this.element.length; i < length; i++) {
+            this.restoreSizes(this.element[i] as HTMLElement);
         }
 
         return this.element;
     }
 
-    private isRestoreRequired(restore: boolean): boolean {
-        let isRestoreRequired;
-
-        if (restore && this.isPluginData()) {
-            isRestoreRequired = true;
-        }
-        else {
-            isRestoreRequired = false;
-        }
-
-        return isRestoreRequired;
+    private restoreSizes(element: HTMLElement) {
+        this.setSizes(element, {
+            width: '',
+            height: ''
+        });
     }
 
-    private setSizes(element: HTMLElement, options: {width: number|string, height: number|string}): HTMLElement {
+    private setSizes(element: HTMLElement, options: {width: number|string, height: number|string}) {
         element.style.width = options.width ? `${options.width}px` : '';
         element.style.height = options.height ? `${options.height}px` : '';
-
-        return element;
     }
 
     private calculateSizes(element: HTMLElement, zoom: number): {width: number, height: number} {
