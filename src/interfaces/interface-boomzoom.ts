@@ -1,9 +1,9 @@
-import { InterfaceOptions } from './interface-options';
+import { InterfaceBoomZoomOptions } from './interface-boomzoom-options';
 
 export interface InterfaceBoomZoom {
     element: NodeList;
     
     initialize(selector: string): NodeList;
-    zoom(options: InterfaceOptions): NodeList;
+    zoom(options: InterfaceBoomZoomOptions): NodeList;
     restore(): NodeList;
 }

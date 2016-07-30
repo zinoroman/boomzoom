@@ -1,4 +1,4 @@
-import { InterfaceOptions } from './interfaces/interface-options';
+import { InterfaceBoomZoomOptions } from './interfaces/interface-boomzoom-options';
 import { InterfaceBoomZoom } from './interfaces/interface-boomzoom';
 
 export class BoomZoom implements InterfaceBoomZoom {
@@ -8,7 +8,7 @@ export class BoomZoom implements InterfaceBoomZoom {
         return this.element = document.querySelectorAll(selector);
     }
 
-    public zoom(options: InterfaceOptions): NodeList {
+    public zoom(options: InterfaceBoomZoomOptions): NodeList {
         for (let i = 0, 
                 length = this.element.length, 
                 isRestoreRequired = options.restore,
