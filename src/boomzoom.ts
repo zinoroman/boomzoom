@@ -2,18 +2,18 @@ import { InterfaceBoomZoomOptions } from './interfaces/interface-boomzoom-option
 import { InterfaceBoomZoom } from './interfaces/interface-boomzoom';
 
 export class BoomZoom implements InterfaceBoomZoom {
-    public element: NodeList;
+    public elements: NodeList;
 
     public initialize(selector: string): NodeList {
-        return this.element = document.querySelectorAll(selector);
+        return this.elements = document.querySelectorAll(selector);
     }
 
     public zoom(options: InterfaceBoomZoomOptions): NodeList {
         for (let i = 0, 
-                length = this.element.length, 
+                length = this.elements.length, 
                 isRestoreRequired = options.restore,
                 zoomCoefficient = options.zoomCoefficient; i < length; i++) {
-            const element: HTMLElement = this.element[i] as HTMLElement;
+            const element: HTMLElement = this.elements[i] as HTMLElement;
 
             if (isRestoreRequired) {
                 this.restoreSizes(element);
@@ -27,15 +27,15 @@ export class BoomZoom implements InterfaceBoomZoom {
             });
         }
 
-        return this.element;
+        return this.elements;
     }
 
     public restore(): NodeList {
-        for (let i = 0, length = this.element.length; i < length; i++) {
-            this.restoreSizes(this.element[i] as HTMLElement);
+        for (let i = 0, length = this.elements.length; i < length; i++) {
+            this.restoreSizes(this.elements[i] as HTMLElement);
         }
 
-        return this.element;
+        return this.elements;
     }
 
     private restoreSizes(element: HTMLElement) {
