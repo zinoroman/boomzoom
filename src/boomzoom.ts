@@ -12,7 +12,7 @@ export class BoomZoom implements InterfaceBoomZoom {
         for (let i = 0, 
                 length = this.element.length, 
                 isRestoreRequired = options.restore,
-                zoomCoefficient = options.zoom; i < length; i++) {
+                zoomCoefficient = options.zoomCoefficient; i < length; i++) {
             const element: HTMLElement = this.element[i] as HTMLElement;
 
             if (isRestoreRequired) {
@@ -50,10 +50,10 @@ export class BoomZoom implements InterfaceBoomZoom {
         element.style.height = options.height ? `${options.height}px` : '';
     }
 
-    private calculateSizes(element: HTMLElement, zoom: number): {width: number, height: number} {
+    private calculateSizes(element: HTMLElement, zoomCoefficient: number): {width: number, height: number} {
         return {
-            width: element.offsetWidth * zoom,
-            height: element.offsetHeight * zoom
+            width: element.offsetWidth * zoomCoefficient,
+            height: element.offsetHeight * zoomCoefficient
         };
     }
 }

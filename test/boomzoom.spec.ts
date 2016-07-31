@@ -34,7 +34,7 @@ describe('BoomZoom', () => {
 
     it("should zoom element's width and height", () => {
         boomZoom.zoom({
-            zoom: zoomCoefficient
+            zoomCoefficient: zoomCoefficient
         });
 
         expect(testDiv.offsetHeight).toBe(Math.round(testDivSizes.height * zoomCoefficient));
@@ -43,7 +43,7 @@ describe('BoomZoom', () => {
 
     it("should restore element's width and height after BoomZoom", () => {
         boomZoom.zoom({
-            zoom: zoomCoefficient
+            zoomCoefficient: zoomCoefficient
         });
 
         boomZoom.restore();
@@ -54,11 +54,11 @@ describe('BoomZoom', () => {
 
     it("should restore element's width and height before each BoomZoom.zoom() call", () => {
         boomZoom.zoom({
-            zoom: zoomCoefficient
+            zoomCoefficient: zoomCoefficient
         });
 
         boomZoom.zoom({
-            zoom: zoomCoefficient,
+            zoomCoefficient: zoomCoefficient,
             restore: true
         });
 

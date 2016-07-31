@@ -1,4 +1,4 @@
 export interface InterfaceBoomZoomOptions {
-    zoom: number;
+    zoomCoefficient: number;
     restore?: boolean;
 }
