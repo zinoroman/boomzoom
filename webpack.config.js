@@ -6,7 +6,7 @@ module.exports = {
     },
     output: {
         path: './dist',
-        filename: '[name].js'
+        filename: '[name].min.js'
     },
     devtool: 'source-map',
     resolve: {
