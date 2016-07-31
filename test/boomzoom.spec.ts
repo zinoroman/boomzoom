@@ -1,4 +1,4 @@
-import { BoomZoom } from './../boomzoom';
+import { BoomZoom } from '../src/boomzoom';
 
 describe('BoomZoom', () => {
     let testDiv;
