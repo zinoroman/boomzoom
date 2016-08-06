@@ -9,10 +9,11 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     public zoom(options: InterfaceBoomZoomOptions): NodeList {
-        for (let i = 0, 
-                length = this.elements.length, 
-                isRestoreRequired = options.restore,
-                zoomCoefficient = options.zoomCoefficient; i < length; i++) {
+        const length = this.elements.length;
+        const isRestoreRequired = options.restore;
+        const zoomCoefficient = options.zoomCoefficient;
+
+        for (let i = 0; i < length; i++) {
             const element: HTMLElement = this.elements[i] as HTMLElement;
 
             if (isRestoreRequired) {
@@ -31,7 +32,9 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     public restore(): NodeList {
-        for (let i = 0, length = this.elements.length; i < length; i++) {
+        const length = this.elements.length;
+        
+        for (let i = 0; i < length; i++) {
             this.restoreSizes(this.elements[i] as HTMLElement);
         }
 
