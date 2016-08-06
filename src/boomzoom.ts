@@ -42,15 +42,16 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     private restoreSizes(element: HTMLElement) {
-        this.setSizes(element, {
-            width: '',
-            height: ''
-        });
+        this.setSizes(element);
     }
 
-    private setSizes(element: HTMLElement, options: {width: number|string, height: number|string}) {
-        element.style.width = options.width ? `${options.width}px` : '';
-        element.style.height = options.height ? `${options.height}px` : '';
+    private setSizes(element: HTMLElement, options?: {width: number, height: number}) {
+        /*
+            If options are not passed to the current method 
+            we will just restore width and height of elements, using the empty string
+         */
+        element.style.width = options ? `${options.width}px` : '';
+        element.style.height = options ? `${options.height}px` : '';
     }
 
     private calculateSizes(element: HTMLElement, zoomCoefficient: number): {width: number, height: number} {
