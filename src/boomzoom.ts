@@ -1,111 +1,63 @@
-import { InterfaceOptions } from './interfaces/interface-options';
+import { InterfaceBoomZoomOptions } from './interfaces/interface-boomzoom-options';
 import { InterfaceBoomZoom } from './interfaces/interface-boomzoom';
 
 export class BoomZoom implements InterfaceBoomZoom {
-    public element: NodeList;
+    public elements: NodeList;
 
-    private elementLength: number;
-    private pluginName: string = 'boomzoom';
-
-    constructor(private selector: string) {
-        this.getElement();
+    public initialize(selector: string): NodeList {
+        return this.elements = document.querySelectorAll(selector);
     }
 
-    public getElement(): number {
-        this.element = document.querySelectorAll(this.selector);
-        this.elementLength = this.element.length;
+    public zoom(options: InterfaceBoomZoomOptions): NodeList {
+        const length = this.elements.length;
+        const isRestoreRequired = options.restore;
+        const zoomCoefficient = options.zoomCoefficient;
 
-        return this.elementLength;
-    }
+        for (let i = 0; i < length; i++) {
+            const element: HTMLElement = this.elements[i] as HTMLElement;
 
-    public zoom(options: InterfaceOptions): NodeList {
-        let i: number = 0;
+            if (isRestoreRequired) {
+                this.restoreSizes(element);
+            }
 
-        if (this.isRestoreRequired(options.restore)) {
-            this.restore();
-        }
-
-        for (i; i < this.elementLength; i++) {
-            const element: HTMLElement = this.element[i] as HTMLElement;
-            const elementData = this.calculateSizes(element, options.zoom);
+            const elementSizes = this.calculateSizes(element, zoomCoefficient);
 
             this.setSizes(element, {
-                width: elementData.width,
-                height: elementData.height
+                width: elementSizes.width,
+                height: elementSizes.height
             });
-
-            this.setPluginData(element);
         }
 
-        return this.element;
+        return this.elements;
     }
 
     public restore(): NodeList {
-        let i: number = 0;
-
-        for (i; i < this.elementLength; i++) {
-            const element = this.element[i] as HTMLElement;
-            
-            this.setSizes(element, {
-                width: '',
-                height: ''
-            });
-
-            this.removePluginData(element);
+        const length = this.elements.length;
+        
+        for (let i = 0; i < length; i++) {
+            this.restoreSizes(this.elements[i] as HTMLElement);
         }
 
-        return this.element;
+        return this.elements;
     }
 
-    private isRestoreRequired(restore: boolean): boolean {
-        let isRestoreRequired;
-
-        if (restore && this.isPluginData()) {
-            isRestoreRequired = true;
-        }
-        else {
-            isRestoreRequired = false;
-        }
-
-        return isRestoreRequired;
+    private restoreSizes(element: HTMLElement) {
+        this.setSizes(element);
     }
 
-    private setSizes(element: HTMLElement, options: {width: number|string, height: number|string}): HTMLElement {
-        element.style.width = options.width ? `${options.width}px` : '';
-        element.style.height = options.height ? `${options.height}px` : '';
-
-        return element;
+    private setSizes(element: HTMLElement, options?: {width: number, height: number}) {
+        /*
+            If options are not passed to the current method 
+            we will just restore width and height of elements, using the empty string
+         */
+        element.style.width = options ? `${options.width}px` : '';
+        element.style.height = options ? `${options.height}px` : '';
     }
 
-    private calculateSizes(element: HTMLElement, zoom: number): {width: number, height: number} {
+    private calculateSizes(element: HTMLElement, zoomCoefficient: number): {width: number, height: number} {
         return {
-            width: element.offsetWidth * zoom,
-            height: element.offsetHeight * zoom
+            width: element.offsetWidth * zoomCoefficient,
+            height: element.offsetHeight * zoomCoefficient
         };
-    }
-
-    private setPluginData(element: HTMLElement) {
-        element.setAttribute(this.getPluginDataAttribute(), 'true');
-    }
-
-    private removePluginData(element: HTMLElement) {
-        element.removeAttribute(this.getPluginDataAttribute());
-    }
-
-    private isPluginData(): boolean {
-        let isPluginData;
-
-        if ((this.element[0] as HTMLElement).getAttribute(this.getPluginDataAttribute())) {
-            isPluginData = true;
-        }
-        else {
-            isPluginData = false;
-        }
-
-        return isPluginData;
-    }
-
-    private getPluginDataAttribute(): string {
-        return `data-${this.pluginName}`;
     }
 }

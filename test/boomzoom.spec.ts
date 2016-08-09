@@ -1,6 +1,6 @@
-import { BoomZoom } from './../boomzoom';
+import { BoomZoom } from '../src/boomzoom';
 
-describe('BoomZoom', function() {
+describe('BoomZoom', () => {
     let testDiv;
     let testDivSizes;
     let boomZoom;
@@ -24,7 +24,8 @@ describe('BoomZoom', function() {
             height: testDiv.offsetHeight
         };
 
-        boomZoom = new BoomZoom(`#${elementData.id}`);
+        boomZoom = new BoomZoom();
+        boomZoom.initialize(`#${elementData.id}`);
     });
 
     afterEach(() => {
@@ -33,7 +34,7 @@ describe('BoomZoom', function() {
 
     it("should zoom element's width and height", () => {
         boomZoom.zoom({
-            zoom: zoomCoefficient
+            zoomCoefficient: zoomCoefficient
         });
 
         expect(testDiv.offsetHeight).toBe(Math.round(testDivSizes.height * zoomCoefficient));
@@ -42,7 +43,7 @@ describe('BoomZoom', function() {
 
     it("should restore element's width and height after BoomZoom", () => {
         boomZoom.zoom({
-            zoom: zoomCoefficient
+            zoomCoefficient: zoomCoefficient
         });
 
         boomZoom.restore();
@@ -53,11 +54,11 @@ describe('BoomZoom', function() {
 
     it("should restore element's width and height before each BoomZoom.zoom() call", () => {
         boomZoom.zoom({
-            zoom: zoomCoefficient
+            zoomCoefficient: zoomCoefficient
         });
 
         boomZoom.zoom({
-            zoom: zoomCoefficient,
+            zoomCoefficient: zoomCoefficient,
             restore: true
         });
 
