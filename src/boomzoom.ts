@@ -1,4 +1,5 @@
 import { InterfaceBoomZoomOptions } from './interfaces/interface-boomzoom-options';
+import { InterfaceBoomZoomOptionsResponsive } from './interfaces/interface-boomzoom-options-responsive';
 import { InterfaceBoomZoom } from './interfaces/interface-boomzoom';
 
 export class BoomZoom implements InterfaceBoomZoom {
@@ -9,9 +10,16 @@ export class BoomZoom implements InterfaceBoomZoom {
     }
 
     public zoom(options: InterfaceBoomZoomOptions): NodeList {
+        const responsive = options.responsive;
         const length = this.elements.length;
         const isRestoreRequired = options.restore;
         const zoomCoefficient = options.zoomCoefficient;
+
+        let responsiveBreakpoint;
+
+        if (responsive) {
+            responsiveBreakpoint = this.findResponsiveBreakpoint(responsive);
+        }
 
         for (let i = 0; i < length; i++) {
             const element: HTMLElement = this.elements[i] as HTMLElement;
@@ -59,5 +67,23 @@ export class BoomZoom implements InterfaceBoomZoom {
             width: element.offsetWidth * zoomCoefficient,
             height: element.offsetHeight * zoomCoefficient
         };
+    }
+
+    private findResponsiveBreakpoint(options: InterfaceBoomZoomOptionsResponsive): number {
+        const windowWidth: number = window.innerWidth;
+        const breakpoints: string[] = Object.keys(options).sort().reverse();
+        const breakpointsLength: number = breakpoints.length;
+
+        let suitableBreakpoints: number[] = [];
+
+        for (let i = 0; i < breakpointsLength; i++) {
+            const currentBreakpoint = parseInt(breakpoints[i]);
+
+            if (currentBreakpoint <= windowWidth) {
+                suitableBreakpoints.push(currentBreakpoint);
+            }
+        }
+
+        return Math.max(...suitableBreakpoints);
     }
 }
