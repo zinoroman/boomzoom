@@ -65,4 +65,36 @@ describe('BoomZoom', () => {
         expect(testDiv.offsetHeight).toBe(Math.round(testDivSizes.height * zoomCoefficient));
         expect(testDiv.offsetWidth).toBe(Math.round(testDivSizes.width * zoomCoefficient));
     });
+
+    it("should support breakpoints", () => {
+        const currentWindowWidth: number = window.innerWidth;
+        const zoomCoefficient = .5;
+
+        boomZoom.zoom({
+            responsive: {
+                [currentWindowWidth]: {
+                    zoomCoefficient: .5
+                }
+            }
+        });
+
+        expect(testDiv.offsetHeight).toBe(Math.round(testDivSizes.height * zoomCoefficient));
+        expect(testDiv.offsetWidth).toBe(Math.round(testDivSizes.width * zoomCoefficient));
+    });
+
+    it("should support breakpoints #2", () => {
+        const currentWindowWidth: number = window.innerWidth;
+        const zoomCoefficient = .5;
+
+        boomZoom.zoom({
+            responsive: {
+                [currentWindowWidth - 1]: {
+                    zoomCoefficient: .5
+                }
+            }
+        });
+
+        expect(testDiv.offsetHeight).toBe(testDivSizes.height);
+        expect(testDiv.offsetWidth).toBe(testDivSizes.width);
+    });
 });
